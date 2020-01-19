@@ -130,10 +130,10 @@ public class MeleeUnits : Units
             Ranged_Units ru = (Ranged_Units)conflict;
             health = health - (ru.attack - ru.ackrange);
         }
-        else if (conflict is Wizard_Unit) conflict;
+        else if (conflict is Wizard_Units)
         {
-            Wizard_Unit wu = (Wizard_Unit)conflict;
-            health = health - (wu.attack - wu.ConflictRange);
+            Wizard_Units wu = (Wizard_Units)conflict;
+            health = health - (wu.attack - wu.ackrange);
         }
         if(health <= 0)//if health of unit = 0, the unit will die
         {
@@ -153,9 +153,9 @@ public class MeleeUnits : Units
         {
             otherObjects = ((Ranged_Units)other).GameObject;
         }
-        else if (other is Wizard_Unit)
+        else if (other is Wizard_Units)
         {
-            otherObjects = ((Wizard_Unit)other).GameObject;
+            otherObjects = ((Wizard_Units)other).GameObject;
         }
 
         distance = Math.Abs(GameObject.transform.position.x - otherObjects.transform.position.x) + Math.Abs(GameObject.transform.position.z - otherObjects.transform.position.z);
@@ -179,8 +179,8 @@ public class MeleeUnits : Units
             if (u is MeleeUnits && u != this)
             {
                 MeleeUnits otherMu = (MeleeUnits)u;
-                float distance = Math.Abs(this.GameObject.transform.position.xPos - otherMu.GameObject.transform.positiono.xPos) +
-                                 Math.Abs(this.GameObject.transform.position.zPos - otherMu.GameObject.transform.positiono.zPos);
+                float distance = Math.Abs(this.GameObject.transform.position.x - otherMu.GameObject.transform.positiono.x) +
+                                 Math.Abs(this.GameObject.transform.position.z - otherMu.GameObject.transform.positiono.z);
                           
                 if (distance < nearest)
                 {
@@ -191,19 +191,19 @@ public class MeleeUnits : Units
             else if (u is Ranged_Units && u !=this)
             {
                 Ranged_Units otherRu = (Ranged_Units)u;
-                float distance = Math.Abs(this.GameObject.transform.position.xPos - otherMu.GameObject.transform.position.xPos) +
-                                 Math.Abs(this.GameObject.transform.position.zPos - otherMu.GameObject.transform.position.zPos);
+                float distance = Math.Abs(this.GameObject.transform.position.x - otherRu.GameObject.transform.position.x) +
+                                 Math.Abs(this.GameObject.transform.position.z - otherRu.GameObject.transform.position.z);
                 if (distance < nearest)
                 {
                     nearest = distance;
                     closest = otherRu;
                 }
             }
-            else if (u is Wizard_Unit && u != this)
+            else if (u is Wizard_Units && u != this)
             {
-                Wizard_Unit otherWu = (Wizard_Unit)u;
-                float distance = Math.Abs(this.GameObject.transform.position.xPos - otherMu.GameObject.transform.position.xPos) +
-                                 Math.Abs(this.GameObject.transform.position.zPos - otherMu.GameObject.transform.position.zPos);
+                Wizard_Units otherWu = (Wizard_Units)u;
+                float distance = Math.Abs(this.GameObject.transform.position.x - otherWu.GameObject.transform.position.x) +
+                                 Math.Abs(this.GameObject.transform.position.z - otherWu.GameObject.transform.position.z);
                 if (distance < nearest)
                 {
                     nearest = distance;
@@ -219,37 +219,37 @@ public class MeleeUnits : Units
         health = 0f;
         Attacking = false;
     }
-    public override void Move(float dire)
+    public override void Move(int dire)
     {
         Vector3 temp = new Vector3();
-        switch (dir)
+        switch (dire)
         {
             case 0:
                 {
                     temp = GameObject.transform.position + new Vector3(0f, 0f, 10f);
                     GameObject.transform.position = temp;
-                    GameObject.transform.Translate(Vector3.up * Speed);
+                    GameObject.transform.Translate(Vector3.up * rspeed);
                     break;//Northern direction
                 }
             case 1:
                 {
                     temp = GameObject.transform.position + new Vector3(10f, 0f, 10f);
                     GameObject.transform.position = temp;
-                    GameObject.transform.Translate(Vector3.right * Speed);
+                    GameObject.transform.Translate(Vector3.right * rspeed);
                     break;//Eastern direction
                 }
             case 2:
                 {
-                    temp = GameObject.transform.position + new Vector3(f, 0f, 10f);
+                    temp = GameObject.transform.position + new Vector3(10f, 0f, 10f);
                     GameObject.transform.position = temp;
-                    GameObject.transform.Translate(Vector3.down * Speed);
+                    GameObject.transform.Translate(Vector3.down * rspeed);
                     break;//Southern direction
                 }
             case 3:
                 {
                     temp = GameObject.transform.position + new Vector3(10f, 0f, 10f);
                     GameObject.transform.position = temp;
-                    GameObject.transform.Translate(Vector3.left * Speed);
+                    GameObject.transform.Translate(Vector3.left * rspeed);
                     break;//Western direction
                 }
             default: break;

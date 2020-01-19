@@ -100,6 +100,51 @@ public class Map : MonoBehaviour
             }
         }
         CreateUnits();//Calling method
+        Display();
+        for(int i = 0; i < unit.Count;i++)
+        {
+            if(unit[i] is MeleeUnits)
+            {
+                MeleeUnits mu = (MeleeUnits)unit[i];
+                if(mu.health <= mu.MaxHealth * 0.25)
+                {
+                    mu.Move(rnd.Next(0, 4));
+                }
+                else
+                {
+                    (Units Nearest, float distanceTo) = mu.Nearest(unit);
+                    
+                    if(distanceTo <= mu.ackrange)
+                    {
+                        mu.Attacking = true;
+                        mu.Conflict(nearest);
+                    }
+                    else
+                    {
+                        if(nearest is MeleeUnits)
+                        {
+                            MeleeUnits nearestMu = (MeleeUnits)nearest;
+                            if(mu.gameobject.transform.position.x > nearestMu.gameobject.transform.position.x)//North movement
+                            {
+                                mu.Move(0);
+                            }
+                            else if (mu.gameobject.transform.position.x > nearestMu.gameobject.transform.position.x)//South Movement
+                            {
+                                mu.Move(2);
+                            }
+                            else if (mu.gameobject.transform.position.z > nearestMu.gameobject.transform.position.z)//West movement
+                            {
+                                mu.Move(3);
+                            }
+                            else if (mu.gameobject.transform.position.z > nearestMu.gameobject.transform.position.z)//East movement
+                            {
+                                mu.Move(1);
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
       if(!Destroyed)
       {
@@ -174,17 +219,17 @@ public class Map : MonoBehaviour
             if (u is MeleeUnits)
             {
                 MeleeUnits mu = (MeleeUnits)u;
-                Instantiate(mu.gameobject, mu.gameobject.tansform.position, Quaternion.identity);
+                Instantiate(mu.GameObject, mu.GameObject.tansform.position, Quaternion.identity);
             }
             else if (u is Ranged_Units)
             {
                Ranged_Units ru = (Ranged_Units)u;
-               Instantiate(ru.gameobject, ru.hameobject.transform.position, Quaternion.identity);
+               Instantiate(ru.GameObject, ru.GameObject.transform.position, Quaternion.identity);
             }
-            else if (u is Wizard_Unit)
+            else if (u is Wizard_Units)
             {
-                Wizard_Unit wu = (Wizard_Unit)u;
-                Instantiate(wu.gameobject, wu.gameobject.transform.position, Quaternion.identity);
+                Wizard_Units wu = (Wizard_Units)u;
+                Instantiate(wu.GameObject, wu.GameObject.transform.position, Quaternion.identity);
             }
         }
         for (int x = 0; x < areaSize; x++)
@@ -454,7 +499,7 @@ public class Map : MonoBehaviour
                     }
                 }
             }
-            else if (((((resources - meleeC) >= 0) || (resources - rangedC) >= 0) || (resources - wizardC) >= 0) && (rnd.Next(0, 3) == 2))
+            else if (((((Resources - meleeC) >= 0) || (Resources - rangedC) >= 0) || (Resources - wizardC) >= 0) && (rnd.Next(0, 3) == 2))
             {
                 Resources r = (Resources)b;
                 if (r.Team == 0)

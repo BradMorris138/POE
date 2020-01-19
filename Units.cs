@@ -23,7 +23,7 @@ using UnityEngine;
         protected string name;
         protected bool death;
         protected GameObject gameobject;
-        public abstract void Move(float dir);
+        public abstract void Move(int dir);
         public abstract void Conflict(Units conflict);
         public abstract bool ConflictRange(Units other);
         public abstract (Units, float) Nearest(List<Units>units);

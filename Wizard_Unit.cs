@@ -26,11 +26,6 @@ public class Wizard_Units : Units
         get { return base.MaxHealth; }
     }
 
-    public float rspeed
-    {
-        get { return base.RSpeed; }
-        set { RSpeed = value; }
-    }
 
 
 
@@ -63,6 +58,12 @@ public class Wizard_Units : Units
     {
         get { return base.attacking; }
         set { attacking = value; }
+    }
+
+    public float rspeed
+    {
+        get { return base.RSpeed; }
+        set { base.RSpeed = value; }
     }
 
     public float Directions
@@ -138,16 +139,16 @@ public class Wizard_Units : Units
         else if (conflict is Ranged_Units)
         {
             Ranged_Units ru = (Ranged_Units)conflict;
-            health = health - (ru.attack - ru.ConflictRange);
+            health = health - (ru.attack - ru.ackrange);
         }
-        else if (conflict is Wizard_Units) conflict;
+        else if (conflict is Wizard_Units)
         {
             Wizard_Units wu = (Wizard_Units)conflict;
-            health = health - (wu.attack - wu.ConflictRange);
+            health = health - (wu.attack - wu.ackrange);
         }
         if (health <= 0)//if health of unit = 0, the unit will die
         {
-            Death();
+            Dead();
         }
     }
 
@@ -205,33 +206,50 @@ public class Wizard_Units : Units
                 {
                     temp = GameObject.transform.position + new Vector3(0f, 0f, 10f);
                     GameObject.transform.position = temp;
-                    GameObject.transform.Translate(Vector3.up * Speed);
+                    GameObject.transform.Translate(Vector3.up * rspeed);
                     break;//Northern direction
                 }
             case 1:
                 {
                     temp = GameObject.transform.position + new Vector3(10f, 0f, 10f);
                     GameObject.transform.position = temp;
-                    GameObject.transform.Translate(Vector3.right * Speed);
+                    GameObject.transform.Translate(Vector3.right * rspeed);
                     break;//Eastern direction
                 }
             case 2:
                 {
-                    temp = GameObject.transform.position + new Vector3(f, 0f, -10f);
+                    temp = GameObject.transform.position + new Vector3(10f, 0f, -10f);
                     GameObject.transform.position = temp;
-                    GameObject.transform.Translate(Vector3.down * Speed);
+                    GameObject.transform.Translate(Vector3.down * rspeed);
                     break;//Southern direction
                 }
             case 3:
                 {
                     temp = GameObject.transform.position + new Vector3(-10f, 0f, 0f);
                     GameObject.transform.position = temp;
-                    GameObject.transform.Translate(Vector3.left * Speed);
+                    GameObject.transform.Translate(Vector3.left * rspeed);
                     break;//Western direction
                 }
             default: break;
         }
 
+    }
+
+    public override void Dead()
+    {
+        Death = true;
+        health = 0;
+        Attacking = false;
+    }
+
+    public override string ToString()
+    {
+        string temp = "";
+        temp += "Wizard:";
+        temp += "(" + GameObject.transform.position.x + "," + GameObject.transform.position.y + "," + GameObject.transform.position.z + ")";
+        temp += health + " ," + Attack + " ," + AckRange + " ," + RSpeed;
+        temp += (Death ? "Dead!" : "Alive");
+        return temp;
     }
 }
 
