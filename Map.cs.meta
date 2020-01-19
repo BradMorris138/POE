@@ -1,0 +1,25 @@
+fileFormatVersion: 2
+guid: 89b12bf13c0100b4b96e9fbe70188246
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - OpenArea: {instanceID: 0}
+  - Player: {instanceID: 0}
+  - Wizzard: {instanceID: 0}
+  - Ranged_Units: {instanceID: 0}
+  - Melee_Units: {instanceID: 0}
+  - Obstruction: {instanceID: 0}
+  - Resources: {instanceID: 0}
+  - Factory: {instanceID: 0}
+  - txtResources: {instanceID: 0}
+  - txtHP: {instanceID: 0}
+  - txtFactory: {instanceID: 0}
+  - txtMelee_Unit: {instanceID: 0}
+  - txtWizard_Unit: {instanceID: 0}
+  - txtRanged_Unit: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
