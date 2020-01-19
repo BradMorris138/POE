@@ -61,6 +61,7 @@
      <Compile Include="Assets\Scripts\MeleeUnits.cs" />
      <Compile Include="Assets\Scripts\Ranged_Units.cs" />
      <Compile Include="Assets\Scripts\Units.cs" />
+     <Compile Include="Assets\Scripts\Wizard_Unit.cs" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
      <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
