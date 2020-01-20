@@ -179,8 +179,8 @@ public class MeleeUnits : Units
             if (u is MeleeUnits && u != this)
             {
                 MeleeUnits otherMu = (MeleeUnits)u;
-                float distance = Math.Abs(this.GameObject.transform.position.x - otherMu.GameObject.transform.positiono.x) +
-                                 Math.Abs(this.GameObject.transform.position.z - otherMu.GameObject.transform.positiono.z);
+                float distance = Math.Abs(this.GameObject.transform.position.x - otherMu.GameObject.transform.position.x) +
+                                 Math.Abs(this.GameObject.transform.position.z - otherMu.GameObject.transform.position.z);
                           
                 if (distance < nearest)
                 {
